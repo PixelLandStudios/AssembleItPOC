@@ -24,9 +24,10 @@ public class SlotScript : MonoBehaviour
 
             //remove the current part that is being held
             //other.transform.parent.gameObject.SetActive(false);
-            Destroy(other.transform.parent.gameObject);
+            Destroy(other.transform.root.gameObject);
 
             AssociatedPart.SetActive(true);
+            //AssociatedPart.transform.SetParent(parent);
         }
     }
 }
