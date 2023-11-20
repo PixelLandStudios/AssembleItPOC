@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Screw
+  - ScrewHead
+  - ScrewTip
+  - ScrewdriverHead
   layers:
   - Default
   - TransparentFX

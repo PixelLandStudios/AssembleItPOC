@@ -7,6 +7,9 @@ public class SlotScript : MonoBehaviour
     [SerializeField]
     GameObject AssociatedPart;
 
+    [SerializeField]
+    string ComparedTag;
+
     public bool IsScrewed = false;
 
     // Start is called before the first frame update
@@ -17,17 +20,15 @@ public class SlotScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Screw"))
+        if (other.CompareTag(ComparedTag))
         {
             IsScrewed = true;
             this.GetComponent<MeshRenderer>().enabled = false;
 
             //remove the current part that is being held
-            //other.transform.parent.gameObject.SetActive(false);
             Destroy(other.transform.root.gameObject);
 
             AssociatedPart.SetActive(true);
-            //AssociatedPart.transform.SetParent(parent);
         }
     }
 }
