@@ -33,8 +33,8 @@ public class ControllerInputScript : MonoBehaviour
                 bool triggerValue;
                 if (rightHandedControllers[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.secondaryButton, out triggerValue) && triggerValue)
                 {
-                    //SceneManager.LoadScene("SampleScene");
-                    UnassembledChairLeg1.SetActive(true);
+                    SceneManager.LoadScene("SampleScene");
+                    //UnassembledChairLeg1.SetActive(true);
                 }
             }
         }

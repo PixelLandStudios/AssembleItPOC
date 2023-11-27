@@ -13,7 +13,7 @@ public class UnscrewedPartScript : MonoBehaviour
 
     float partEulerX = 0f;
 
-    float targetValueX = 0.5f;
+    float targetValuey = -65f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,19 +42,19 @@ public class UnscrewedPartScript : MonoBehaviour
         if (angle > 50)
         {
             ConfigurableJoint configurableJoint = this.GetComponent<ConfigurableJoint>();
-            float xValue = configurableJoint.connectedAnchor.x - 0.15f;
+            float yValue = configurableJoint.connectedAnchor.y + 10f;
 
-            configurableJoint.connectedAnchor = new Vector3(xValue, configurableJoint.connectedAnchor.y, configurableJoint.connectedAnchor.z);
+            configurableJoint.connectedAnchor = new Vector3(configurableJoint.connectedAnchor.x, yValue, configurableJoint.connectedAnchor.z);
 
             //this mean that the part is assembled correctly
-            if (xValue <= targetValueX)
+            if (yValue >= targetValuey)
             {
                 AssembledPart.SetActive(true);
-                BasePart.GetComponent<XRGrabInteractable>().colliders.Add(AssembledPart.GetComponent<Collider>());
+                //BasePart.GetComponent<XRGrabInteractable>().colliders.Add(AssembledPart.GetComponent<Collider>());
                 //StartCoroutine(ReregisterInteractable(BasePart.GetComponent<XRGrabInteractable>()));
 
-                BasePart.GetComponent<XRGrabInteractable>().interactionManager.UnregisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
-                BasePart.GetComponent<XRGrabInteractable>().interactionManager.RegisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
+                //BasePart.GetComponent<XRGrabInteractable>().interactionManager.UnregisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
+                //BasePart.GetComponent<XRGrabInteractable>().interactionManager.RegisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
 
                 Destroy(this.transform.gameObject);
             }
