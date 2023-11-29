@@ -11,9 +11,13 @@ public class UnscrewedPartScript : MonoBehaviour
     [SerializeField]
     GameObject BasePart;
 
-    float partEulerX = 0f;
-
+    [SerializeField]
     float targetValuey = -65f;
+
+    [SerializeField]
+    bool IsChairLeg;
+
+    float partEulerX = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,40 +43,48 @@ public class UnscrewedPartScript : MonoBehaviour
 
         Debug.Log(angle);
 
-        if (angle > 50)
+        if (angle > 30)
         {
             ConfigurableJoint configurableJoint = this.GetComponent<ConfigurableJoint>();
-            float yValue = configurableJoint.connectedAnchor.y + 10f;
+            float yValue = 0;
+
+            if (IsChairLeg)
+                yValue = configurableJoint.connectedAnchor.y + 10f;
+            else
+                yValue = configurableJoint.connectedAnchor.y - 10f;
 
             configurableJoint.connectedAnchor = new Vector3(configurableJoint.connectedAnchor.x, yValue, configurableJoint.connectedAnchor.z);
 
             //this mean that the part is assembled correctly
-            if (yValue >= targetValuey)
+            //if (yValue >= targetValuey)
+            if (CompareWithTargetValue(yValue))
             {
                 AssembledPart.SetActive(true);
-                //BasePart.GetComponent<XRGrabInteractable>().colliders.Add(AssembledPart.GetComponent<Collider>());
-                //StartCoroutine(ReregisterInteractable(BasePart.GetComponent<XRGrabInteractable>()));
+                BasePart.GetComponent<XRGrabInteractable>().colliders.Add(AssembledPart.GetComponent<Collider>());
 
-                //BasePart.GetComponent<XRGrabInteractable>().interactionManager.UnregisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
-                //BasePart.GetComponent<XRGrabInteractable>().interactionManager.RegisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
+                BasePart.GetComponent<XRGrabInteractable>().interactionManager.UnregisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
+                BasePart.GetComponent<XRGrabInteractable>().interactionManager.RegisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
 
                 Destroy(this.transform.gameObject);
             }
         }
     }
 
-    //private IEnumerator ReregisterInteractable(XRGrabInteractable interactable)
-    //{
-    //    Debug.Log("AAAAAAAAAAAAAAAAA");
-
-    //    yield return new WaitForSeconds(0.1f);
-    //    interactable.interactionManager.UnregisterInteractable(interactable as IXRInteractable);
-
-    //    yield return new WaitForSeconds(0.1f);
-    //    interactable.interactionManager.RegisterInteractable(interactable as IXRInteractable);
-
-    //    Debug.Log("BBBBBBBBBBBBBB");
-
-    //    yield return null;
-    //}
+    bool CompareWithTargetValue(float yValue)
+    {
+        if (IsChairLeg)
+        {
+            if (yValue >= targetValuey)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            if (yValue <= targetValuey)
+                return true;
+            else
+                return false;
+        }
+    }
 }

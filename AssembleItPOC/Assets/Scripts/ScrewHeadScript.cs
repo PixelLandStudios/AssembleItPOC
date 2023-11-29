@@ -25,31 +25,34 @@ public class ScrewHeadScript : MonoBehaviour
 
         if (isBeingScrewed)
         {
-            transform.parent.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+            transform.parent.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
 
-            transform.parent.Translate(Vector3.down * 0.02f * Time.deltaTime);
+            transform.parent.Translate(Vector3.back * 0.02f * Time.deltaTime);
 
-            // Get the direction between the two objects
-            Vector3 direction = RaycastBase.position - this.transform.position;
+            ////// Get the direction between the two objects
+            //Vector3 direction = RaycastBase.position - this.transform.position;
 
-            RaycastHit hitInfo;
-            // Cast a ray from object1 to object2
-            if (Physics.Raycast(this.transform.position, direction, out hitInfo, Mathf.Infinity))
-            {
-                // Check if the ray hits object2
-                if (hitInfo.transform == RaycastBase)
-                {
-                    // Calculate the distance between object1 and object2
-                    float distance = Vector3.Distance(this.transform.position, RaycastBase.position);
-                    Debug.Log("Distance between object1 and object2: " + distance);
+            //Debug.DrawRay(this.transform.position, direction);
+            //Debug.Log(direction);
 
-                    if (distance < 0.16035)
-                    {
-                        //replace with visuals only that is screwed
-                        isScrewedCorrectly = true;
-                    }
-                }
-            }
+            //RaycastHit hitInfo;
+            //// Cast a ray from object1 to object2
+            //if (Physics.Raycast(this.transform.position, direction, out hitInfo, Mathf.Infinity))
+            //{
+            //    // Check if the ray hits object2
+            //    if (hitInfo.transform == RaycastBase)
+            //    {
+            //        // Calculate the distance between object1 and object2
+            //        float distance = Vector3.Distance(this.transform.position, RaycastBase.position);
+            //        Debug.Log("Distance between object1 and object2: " + distance);
+
+            //        if (distance < 0.16035)
+            //        {
+            //            //replace with visuals only that is screwed
+            //            isScrewedCorrectly = true;
+            //        }
+            //    }
+            //}
         }
     }
 
