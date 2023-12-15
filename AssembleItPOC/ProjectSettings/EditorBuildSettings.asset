@@ -6,9 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Toon Fantasy Nature/Scenes/Demo_Scene_Puddle.unity
+    guid: a0769874b7f756c49bdf741f5bd8d48c
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 13b37396c010d5447a5ca6100f8d3fac,
+      type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 1349685706aab964ba24a836cf694d87,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9dd6e53ea8842af4caa0b014bc607c60,
