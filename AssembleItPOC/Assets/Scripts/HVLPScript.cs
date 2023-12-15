@@ -11,6 +11,9 @@ public class HVLPScript : MonoBehaviour
     [SerializeField]
     P3dHitBetween p3DHitBetween;
 
+    [SerializeField]
+    AudioSource sprayingSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +28,14 @@ public class HVLPScript : MonoBehaviour
 
     public void OnPressStart()
     {
+        sprayingSFX.Play();
         paintingParticleSystem.Play();
         p3DHitBetween.enabled = true;
     }
 
     public void OnPressEnd()
     {
+        sprayingSFX.Stop();
         paintingParticleSystem.Stop();
         p3DHitBetween.enabled = false;
     }

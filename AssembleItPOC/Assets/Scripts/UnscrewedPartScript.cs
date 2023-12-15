@@ -17,6 +17,9 @@ public class UnscrewedPartScript : MonoBehaviour
     [SerializeField]
     bool IsChairLeg;
 
+    [SerializeField]
+    AudioSource tighteningSFX;
+
     float partEulerX = 0f;
 
     // Start is called before the first frame update
@@ -43,6 +46,9 @@ public class UnscrewedPartScript : MonoBehaviour
 
         Debug.Log(angle);
 
+        tighteningSFX.Stop();
+        tighteningSFX.Play();
+
         if (angle > 30)
         {
             ConfigurableJoint configurableJoint = this.GetComponent<ConfigurableJoint>();
@@ -56,7 +62,6 @@ public class UnscrewedPartScript : MonoBehaviour
             configurableJoint.connectedAnchor = new Vector3(configurableJoint.connectedAnchor.x, yValue, configurableJoint.connectedAnchor.z);
 
             //this mean that the part is assembled correctly
-            //if (yValue >= targetValuey)
             if (CompareWithTargetValue(yValue))
             {
                 AssembledPart.SetActive(true);

@@ -7,6 +7,9 @@ public class ScrewdriverScript : MonoBehaviour
     [SerializeField]
     Transform HeadTransform;
 
+    [SerializeField]
+    AudioSource screwdriverSFX;
+
     float rotationSpeed = 500;
 
     public bool IsScrewing = false;
@@ -25,11 +28,13 @@ public class ScrewdriverScript : MonoBehaviour
 
     public void OnButtonPressStart()
     {
+        screwdriverSFX.Play();
         IsScrewing = true;
     }
 
     public void OnButtonPressEnd()
     {
+        screwdriverSFX.Stop();
         IsScrewing = false;
     }
 }
