@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PartScript : MonoBehaviour
+public class PartScript : BasePart
 {
     [SerializeField]
     List<GameObject> CompatibleJoints;

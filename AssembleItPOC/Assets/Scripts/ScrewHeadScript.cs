@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScrewHeadScript : MonoBehaviour
+public class ScrewHeadScript : BasePart
 {
     [SerializeField]
     Transform RaycastBase;
 
+    float screwedCorrectlyMargin = 0.02f;
+
     float rotationSpeed = 500;
+
     bool isBeingScrewed = false;
 
     bool isScrewedCorrectly = false;
@@ -29,30 +32,19 @@ public class ScrewHeadScript : MonoBehaviour
 
             transform.parent.Translate(Vector3.back * 0.02f * Time.deltaTime);
 
-            ////// Get the direction between the two objects
-            //Vector3 direction = RaycastBase.position - this.transform.position;
+            float distance = Vector3.Distance(this.transform.position, RaycastBase.position);
 
-            //Debug.DrawRay(this.transform.position, direction);
-            //Debug.Log(direction);
+            ShowDebugText(distance.ToString());
 
-            //RaycastHit hitInfo;
-            //// Cast a ray from object1 to object2
-            //if (Physics.Raycast(this.transform.position, direction, out hitInfo, Mathf.Infinity))
-            //{
-            //    // Check if the ray hits object2
-            //    if (hitInfo.transform == RaycastBase)
-            //    {
-            //        // Calculate the distance between object1 and object2
-            //        float distance = Vector3.Distance(this.transform.position, RaycastBase.position);
-            //        Debug.Log("Distance between object1 and object2: " + distance);
-
-            //        if (distance < 0.16035)
-            //        {
-            //            //replace with visuals only that is screwed
-            //            isScrewedCorrectly = true;
-            //        }
-            //    }
-            //}
+            if (distance <= screwedCorrectlyMargin)
+            {
+                isScrewedCorrectly = true;
+                //call progression system
+                if (!string.IsNullOrWhiteSpace(PartName))
+                {
+                    LevelProgressionSystem.Instance.UpdateProgress(PartName);
+                }
+            }
         }
     }
 
@@ -71,5 +63,10 @@ public class ScrewHeadScript : MonoBehaviour
         {
             isBeingScrewed = false;
         }
+    }
+
+    void ShowDebugText(string text)
+    {
+        GameObject.Find("DebugLogText").GetComponent<TMPro.TextMeshProUGUI>().text = text;
     }
 }

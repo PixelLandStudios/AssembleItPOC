@@ -25,8 +25,14 @@ public class SlotScript : MonoBehaviour
             IsScrewed = true;
             this.GetComponent<MeshRenderer>().enabled = false;
 
+            //check if the assembled part has "PartName" then it means it's fully assembled, and I need to update game progress
+            if (other.gameObject.GetComponent<PartScript>() != null && !string.IsNullOrWhiteSpace(other.gameObject.GetComponent<PartScript>().PartName))
+            {
+                LevelProgressionSystem.Instance.UpdateProgress(other.gameObject.GetComponent<PartScript>().PartName);
+            }
+
             //remove the current part that is being held
-            Destroy(other.transform.root.gameObject);
+                Destroy(other.transform.root.gameObject);
 
             AssociatedPart.SetActive(true);
         }

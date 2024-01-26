@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class UnscrewedPartScript : MonoBehaviour
+public class UnscrewedPartScript : BasePart
 {
     [SerializeField]
     GameObject AssembledPart;
@@ -69,6 +69,12 @@ public class UnscrewedPartScript : MonoBehaviour
 
                 BasePart.GetComponent<XRGrabInteractable>().interactionManager.UnregisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
                 BasePart.GetComponent<XRGrabInteractable>().interactionManager.RegisterInteractable(BasePart.GetComponent<XRGrabInteractable>() as IXRInteractable);
+
+                //check if this assembled part has "PartName" then it means it's fully assembled, and I need to update game progress
+                if (!string.IsNullOrWhiteSpace(PartName))
+                {
+                    LevelProgressionSystem.Instance.UpdateProgress(PartName);
+                }
 
                 Destroy(this.transform.gameObject);
             }
